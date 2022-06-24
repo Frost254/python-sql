@@ -1,4 +1,4 @@
-from unicodedata import name
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -15,4 +15,5 @@ db.create_all()
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    person = Person.query.first()
+    return "Hello " + person.name
