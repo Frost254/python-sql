@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://HP@localhost:5432/HP'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db= SQLAlchemy(app)
 
 class Person(db.Model):
@@ -11,9 +12,12 @@ class Person(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), nullable=False)
     
+def __repr__(self):
+    return f'<Person ID: {self.id}, name: {self.name}>'
+    
 db.create_all()
 
 @app.route("/")
 def hello():
     person = Person.query.first()
-    return "Hello " + person.name
+    return "Hello " + person.name + ", how are you?"
